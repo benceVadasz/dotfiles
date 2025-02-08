@@ -12,6 +12,7 @@ My personal dotfiles for setting up a new machine with my preferred development 
 
 ### Directory Structure
 
+```plaintext
 dotfiles/
 ├── .gitignore # Git ignore file
 ├── zsh/
@@ -31,6 +32,7 @@ dotfiles/
 │ ├── install.sh # Installation script
 │ └── clear_photos.sh # Photo clearing script
 └── README.md
+```
 
 ## Prerequisites
 
