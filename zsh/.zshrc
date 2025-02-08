@@ -14,13 +14,15 @@ source $ZSH/oh-my-zsh.sh
 # Load Powerlevel10k
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
+source $DOTFILES/git/git-aliases.zsh
+
 # Load all .zsh files
 for config_file ($DOTFILES/zsh/*.zsh); do
     source $config_file
 done
 
 # Load custom plugins
-source $DOTFILES/zsh/plugins/zsh-syntax-highlighting.zsh
+source $DOTFILES/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $DOTFILES/zsh/plugins/zsh-shift-select/zsh-shift-select.plugin.zsh
 
