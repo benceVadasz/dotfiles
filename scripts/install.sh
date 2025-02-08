@@ -1,24 +1,24 @@
-# Directory structure
-dotfiles/
-├── zsh/
-│   ├── .zshrc                  # Main zsh configuration
-│   ├── aliases.zsh             # Your custom aliases
-│   ├── functions.zsh           # Your custom functions (killport, etc.)
-│   ├── keybindings.zsh         # Your custom key bindings
-│   ├── p10k.zsh               # Powerlevel10k configuration
-│   └── plugins/                # Custom plugin configurations
-│       ├── zsh-syntax-highlighting/
-│       ├── zsh-autosuggestions/
-│       └── zsh-shift-select/
-├── git/
-│   ├── .gitconfig             
-│   └── git-aliases.zsh        
-├── scripts/
-│   ├── install.sh             
-│   └── clear_photos.sh        
-└── README.md                  
-
 #!/bin/bash
+
+# Directory structure
+# dotfiles/
+# ├── zsh/
+# │   ├── .zshrc                  # Main zsh configuration
+# │   ├── aliases.zsh             # Your custom aliases
+# │   ├── functions.zsh           # Your custom functions (killport, etc.)
+# │   ├── keybindings.zsh         # Your custom key bindings
+# │   ├── p10k.zsh               # Powerlevel10k configuration
+# │   └── plugins/                # Custom plugin configurations
+# │       ├── zsh-syntax-highlighting/
+# │       ├── zsh-autosuggestions/
+# │       └── zsh-shift-select/
+# ├── git/
+# │   ├── .gitconfig             
+# │   └── git-aliases.zsh        
+# ├── scripts/
+# │   ├── install.sh             
+# │   └── clear_photos.sh        
+# └── README.md                  
 
 DOTFILES="$HOME/.dotfiles"
 CONFIG_DIR="$HOME/.config"
@@ -47,8 +47,8 @@ create_symlinks() {
 
 # Main .zshrc content
 # zsh/.zshrc
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh"
 fi
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -62,8 +62,8 @@ plugins=(git copyfile)
 source $ZSH/oh-my-zsh.sh
 
 # Load custom configurations
-for config_file ($DOTFILES/zsh/*.zsh); do
-    source $config_file
+for config_file in $DOTFILES/zsh/*.zsh; do
+    source "$config_file"
 done
 
 # Load custom plugins
@@ -108,9 +108,16 @@ alias particle="pbpaste > ~/Desktop/Dev/projects/AICommands/article/content.txt"
 alias article='node ~/Desktop/Dev/projects/AICommands/article/index.js'
 alias seed='yarn b docker:exec seed'
 alias migration-run='yarn b docker:exec migration:run'
-alias clear-photos="~/.config/scripts/clear_photos.sh"
-alias myip="ifconfig | grep 'inet ' | grep -v '127.0.0.1' | awk '{print \$2}'"
-alias config="code ~/.zshrc"
+
+clear_photos() {
+    ~/.config/scripts/clear_photos.sh
+}
+myip() {
+    ifconfig | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}'
+}
+config() {
+    code ~/.zshrc
+}
 
 # Environment setup
 export PATH=~/.npm-global/bin:$PATH
