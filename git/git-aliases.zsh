@@ -77,6 +77,9 @@ alias gbdel='git branch --delete --force'
 alias gcob='git checkout -b'
 alias gct='git checkout --track'
 
+# git switch
+alias gsw='git switch'
+
 # git cherrypick
 alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
