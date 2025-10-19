@@ -1,0 +1,4 @@
+Snapshot 20251007-155717
+~/.zshrc -> ~/.dotfiles/zsh/.zshrc
+~/.gitconfig -> ~/.dotfiles/git/.gitconfig
+~/.p10k.zsh -> ~/.dotfiles/zsh/p10k.zsh

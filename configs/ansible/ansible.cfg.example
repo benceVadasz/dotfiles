@@ -1,0 +1,51 @@
+# Ansible Configuration
+# Copy to ~/.ansible.cfg or project root
+
+[defaults]
+# Inventory file location
+inventory = ./inventory
+
+# Roles path
+roles_path = ./roles
+
+# Host key checking (disable for learning environments)
+host_key_checking = False
+
+# Gathering facts
+gathering = smart
+fact_caching = jsonfile
+fact_caching_connection = /tmp/ansible_facts
+fact_caching_timeout = 3600
+
+# Output
+stdout_callback = yaml
+bin_ansible_callbacks = True
+
+# Privilege escalation
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = False
+
+# SSH
+remote_user = ubuntu
+private_key_file = ~/.ssh/id_rsa
+timeout = 30
+
+# Logging
+log_path = ./ansible.log
+
+# Performance
+forks = 10
+poll_interval = 15
+
+[privilege_escalation]
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = False
+
+[ssh_connection]
+ssh_args = -o ControlMaster=auto -o ControlPersist=60s
+pipelining = True
+control_path = /tmp/ansible-ssh-%%h-%%p-%%r
