@@ -375,7 +375,7 @@ loadtest() {
         echo "Alternative: Using curl for simple test"
 
         echo "Running $requests requests to $url..."
-        for i in {1..$requests}; do
+        for i in $(seq 1 $requests); do
             curl -s -o /dev/null -w "%{http_code} - %{time_total}s\n" $url
         done
         return 0
@@ -406,7 +406,7 @@ benchmark() {
     echo "Runs: $runs"
     echo ""
 
-    for i in {1..$runs}; do
+    for i in $(seq 1 $runs); do
         echo "Run $i:"
         time eval $cmd
         echo ""
