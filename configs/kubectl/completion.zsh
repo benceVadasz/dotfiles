@@ -4,7 +4,7 @@
 if command -v kubectl &> /dev/null; then
     source <(kubectl completion zsh)
 
-    # Alias completion
-    complete -F __start_kubectl k
-    complete -F __start_kubectl kube
+    # Alias completion for Zsh
+    compdef _kubectl k
+    compdef _kubectl kube
 fi

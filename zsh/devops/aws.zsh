@@ -530,7 +530,7 @@ iamaudit() {
 # Show costs for last N days
 awscosts() {
     local days=${1:-7}
-    local start_date=$(date -v-${days}d +%Y-%m-%d)
+    local start_date=$(date -d "${days} days ago" +%Y-%m-%d 2>/dev/null || date -v-${days}d +%Y-%m-%d)
     local end_date=$(date +%Y-%m-%d)
 
     echo "=== AWS Costs ($start_date to $end_date) ==="
@@ -546,7 +546,7 @@ awscosts() {
 # Costs by service
 awscosts-service() {
     local days=${1:-30}
-    local start_date=$(date -v-${days}d +%Y-%m-%d)
+    local start_date=$(date -d "${days} days ago" +%Y-%m-%d 2>/dev/null || date -v-${days}d +%Y-%m-%d)
     local end_date=$(date +%Y-%m-%d)
 
     echo "=== AWS Costs by Service (last $days days) ==="
