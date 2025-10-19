@@ -1,0 +1,28 @@
+# Terraform CLI Configuration
+# Copy to ~/.terraformrc and customize
+
+# Plugin cache directory (saves bandwidth and time)
+plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
+
+# Provider installation settings
+provider_installation {
+  filesystem_mirror {
+    path    = "/usr/local/share/terraform/plugins"
+    include = ["registry.terraform.io/*/*"]
+  }
+  direct {
+    exclude = ["registry.terraform.io/*/*"]
+  }
+}
+
+# Credentials for Terraform Cloud (if using)
+# credentials "app.terraform.io" {
+#   token = "YOUR_TERRAFORM_CLOUD_TOKEN"
+# }
+
+# Disable checkpoint (version check)
+disable_checkpoint = false
+
+# Logging (for debugging)
+# Set TF_LOG environment variable instead
+# TF_LOG=TRACE terraform plan

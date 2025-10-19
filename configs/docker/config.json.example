@@ -1,0 +1,19 @@
+{
+  "auths": {},
+  "credsStore": "desktop",
+  "currentContext": "desktop-linux",
+  "plugins": {
+    "-x-cli-hints": {
+      "enabled": true
+    }
+  },
+  "features": {
+    "buildkit": true
+  },
+  "experimental": "enabled",
+  "debug": false,
+  "log-level": "info",
+  "max-concurrent-downloads": 3,
+  "max-concurrent-uploads": 5,
+  "storage-driver": "overlay2"
+}

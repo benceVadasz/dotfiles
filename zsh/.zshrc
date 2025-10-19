@@ -21,6 +21,18 @@ for config_file ($DOTFILES/zsh/*.zsh); do
     source $config_file
 done
 
+# Load DevOps configurations
+if [ -d "$DOTFILES/zsh/devops" ]; then
+    for devops_config ($DOTFILES/zsh/devops/*.zsh); do
+        source $devops_config
+    done
+fi
+
+# Load tool completions
+if [ -f "$DOTFILES/configs/kubectl/completion.zsh" ]; then
+    source $DOTFILES/configs/kubectl/completion.zsh
+fi
+
 # Load custom plugins
 source $DOTFILES/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -45,3 +57,7 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# Added by Windsurf
+export PATH="/Users/bencevadasz/.codeium/windsurf/bin:$PATH"
+export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin
+
