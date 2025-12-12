@@ -4,6 +4,8 @@ alias play="cd ~/Desktop/Dev/playground"
 alias pjob="pbpaste > ~/Desktop/Dev/projects/jobs-api/content.txt"
 alias particle="pbpaste > ~/Desktop/Dev/projects/AICommands/article/content.txt"
 alias article='node ~/Desktop/Dev/projects/AICommands/article/index.js'
+alias cat='bat'
+alias air='~/go/bin/air'
 
 # Docker related aliases
 alias seed='yarn b docker:exec seed'

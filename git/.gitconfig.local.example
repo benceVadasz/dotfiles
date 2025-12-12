@@ -1,0 +1,16 @@
+# Personal Git Configuration Override
+# Copy this file to ~/.gitconfig.local and customize with your personal settings
+# This file is NOT tracked by git and allows personal configuration without affecting shared dotfiles
+
+[user]
+	# Replace with your personal email address
+	email = bncvdsz@gmail.com
+	
+	# Optional: Add your personal name
+	# name = Your Name
+
+# Optional: Add any other personal git configurations here
+# [core]
+#     editor = vim
+# [alias]
+#     st = status

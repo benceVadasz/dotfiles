@@ -1,4 +1,5 @@
-[push]
-	autoSetupRemote = true
 [user]
 	email = bence@kvalifik.dk
+	name = Bence Vadász
+[push]
+	autoSetupRemote = true

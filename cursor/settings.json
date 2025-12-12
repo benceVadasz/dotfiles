@@ -1,0 +1,233 @@
+{
+  "editor.fontSize": 13.5,
+  "editor.fontWeight": "500",
+  "Notes.notesLocation": "/Users/bencevadasz/Desktop/vscode notes",
+  "editor.tokenColorCustomizations": {
+    "strings": "#7a8d5d",
+    "functions": "#d4ac68"
+  },
+  "editor.accessibilitySupport": "off",
+  "workbench.colorCustomizations": {
+    "editor.background": "#2C2C32",
+    "sideBar.background": "#222831",
+    "statusBar.noFolderBackground": "#212121",
+    "statusBar.debuggingBackground": "#263238",
+    "editorBracketHighlight.foreground1": "#FDCA40",
+    "editorBracketHighlight.foreground2": "#5BB318",
+    "statusBar.background": "#332941",
+    "statusBar.foreground": "#E8F9FD",
+    "activityBar.foreground": "#E8F9FD",
+    "activityBarBadge.background": "#DF711B",
+    "tab.activeBorder": "#0A84FF",
+    "tab.activeBackground": "#1B2430"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "editor.multiCursorModifier": "alt",
+  "githubPullRequests.pullBranch": "never",
+  "todo-tree.highlights.defaultHighlight": {
+    "icon": "alert",
+    "type": "tag",
+    "foreground": "#000",
+    "background": "#4BE3AC",
+    "opacity": 100,
+    "iconColour": "#fff",
+    "gutterIcon": true
+  },
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "tasklist",
+      "type": "tag"
+    },
+    "NOTE": {
+      "icon": "file",
+      "foreground": "#000",
+      "background": "#FFC107",
+      "iconColour": "#fff"
+    }
+  },
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "NOTE",
+    "COMMENT",
+    "[ ]",
+    "[x]"
+  ],
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",
+  "todo-tree.filtering.scopes": [],
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "eslint.format.enable": true,
+  "editor.rename.enablePreview": true,
+  "markdown.preview.typographer": true,
+  "workbench.iconTheme": "vscode-icons",
+  "editor.fontLigatures": false,
+  "githubPullRequests.queries": [
+    {
+      "label": "Local Pull Request Branches",
+      "query": "default"
+    },
+    {
+      "label": "Waiting For My Review",
+      "query": "repo:${owner}/${repository} is:open review-requested:${user}"
+    },
+    {
+      "label": "Assigned To Me",
+      "query": "repo:${owner}/${repository} is:open assignee:${user}"
+    },
+    {
+      "label": "Created By Me",
+      "query": "repo:${owner}/${repository} is:open author:${user}"
+    },
+    {
+      "label": "Mentioned Me",
+      "query": "repo:${owner}/${repository} is:open mentions:${user}"
+    },
+    {
+      "label": "All Open",
+      "query": "default"
+    }
+  ],
+  "files.watcherExclude": {
+    "**/.cache/**": true,
+    "**/packages/**": true
+  },
+  "vscode-graphql.cacheSchemaFileForLookup": false,
+  "workbench.quickOpen.preserveInput": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "totalTypeScript.hideAllTips": false,
+  "totalTypeScript.hideBasicTips": true,
+  "totalTypeScript.hiddenTips": [
+    "passing-generics-to-types",
+    "typeof",
+    "partial-utility-type",
+    "keyof",
+    "record-utility-type",
+    "generic-slots-in-functions",
+    "type-alias-with-generics",
+    "tuple-type",
+    "pick-utility-type",
+    "returntype-utility-type",
+    "awaited-utility-type",
+    "non-null-expression",
+    "nonnullable-utility-type",
+    "type-alias-with-multiple-generics",
+    "as-const",
+    "in-operator-narrowing",
+    "conditional-type",
+    "omit-utility-type",
+    "mapped-type",
+    "type-predicate",
+    "nested-conditional-type",
+    "as-const-on-object"
+  ],
+  "editor.tabSize": 2,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.indentSize": "tabSize",
+  "extensions.ignoreRecommendations": true,
+  "workbench.editorAssociations": {
+    "git-rebase-todo": "default"
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "workbench.colorTheme": "Darcula Theme from IntelliJ",
+  "terminal.integrated.env.linux": {},
+  "terminal.integrated.fontSize": 13,
+  "terminal.external.osxExec": "Iterm2.app",
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "markdown.extension.tableFormatter.normalizeIndentation": true,
+  "workbench.productIconTheme": "fluent-icons",
+  "accessibility.signals.lineHasError": {
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasFoldedArea": {
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasBreakpoint": {
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasInlineSuggestion": {
+    "sound": "off"
+  },
+  "accessibility.signals.terminalQuickFix": {
+    "sound": "off"
+  },
+  "accessibility.signals.onDebugBreak": {
+    "sound": "off"
+  },
+  "accessibility.signals.noInlayHints": {
+    "sound": "off"
+  },
+  "accessibility.signals.taskCompleted": {
+    "sound": "off"
+  },
+  "accessibility.signals.taskFailed": {
+    "sound": "off"
+  },
+  "accessibility.signals.terminalCommandFailed": {
+    "sound": "off"
+  },
+  "accessibility.signals.notebookCellCompleted": {
+    "sound": "off"
+  },
+  "accessibility.signals.notebookCellFailed": {
+    "sound": "off"
+  },
+  "accessibility.signals.diffLineDeleted": {
+    "sound": "off"
+  },
+  "accessibility.signals.diffLineModified": {
+    "sound": "off"
+  },
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {},
+  "editor.suggest.preview": true,
+  "prisma.showPrismaDataPlatformNotification": false,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "accessibility.signals.progress": {
+    "sound": "off"
+  },
+  "editor.language.brackets": [],
+  "git.autofetch": true,
+  "cursor.general.disableHttp2": true,
+  "editor.semanticTokenColorCustomizations": {},
+  "sonarlint.connectedMode.connections.sonarqube": [],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "gitlens.defaultDateFormat": "",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.requireConfig": false,
+  "prettier.useEditorConfig": true,
+  // "prettier.configPath": "/Users/bencevadasz/.config/prettier/banijay.prettierrc.json",
+  "eslint.useESLintClass": true,
+  // "eslint.options": {
+  //   "overrideConfig": {
+  //     "rules": {
+  //       "prettier/prettier": "off"
+  //     }
+  //   }
+  // },
+  "gitlens.currentLine.dateFormat": "",
+  "files.autoSave": "onWindowChange",
+  "gitlens.ai.model": "",
+  "gitlens.codeLens.dateFormat": "",
+  "terminal.integrated.scrollback": 10000,
+  "gitlens.launchpad.indicator.enabled": false,
+  "diffEditor.experimental.showMoves": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "githubPullRequests.fileListLayout": "tree",
+  "gitlens.advanced.messages": {
+    "suppressIntegrationDisconnectedTooManyFailedRequestsWarning": true,
+    "suppressGkRequestFailed500Warning": true
+  }
+}
