@@ -20,110 +20,157 @@
 # │   └── clear_photos.sh        
 # └── README.md                  
 
+set -e
+
 DOTFILES="$HOME/.dotfiles"
 CONFIG_DIR="$HOME/.config"
+ZSH_DIR="$HOME/.oh-my-zsh"
+P10K_THEME_DIR="$ZSH_DIR/custom/themes/powerlevel10k"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Print colored messages
+print_info() {
+    echo -e "${GREEN}[INFO]${NC} $1"
+}
+
+print_warn() {
+    echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+# Check if running in zsh (for Oh My Zsh installation)
+check_shell() {
+    if [ -z "$ZSH_VERSION" ]; then
+        print_warn "This script should ideally be run from zsh, but continuing anyway..."
+    fi
+}
+
+# Install Oh My Zsh if not installed
+install_oh_my_zsh() {
+    if [ ! -d "$ZSH_DIR" ]; then
+        print_info "Installing Oh My Zsh..."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        print_info "Oh My Zsh installed successfully"
+    else
+        print_info "Oh My Zsh is already installed"
+    fi
+}
+
+# Install Powerlevel10k theme
+install_powerlevel10k() {
+    if [ ! -d "$P10K_THEME_DIR" ]; then
+        print_info "Installing Powerlevel10k theme..."
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_THEME_DIR" || {
+            print_error "Failed to install Powerlevel10k"
+            return 1
+        }
+        print_info "Powerlevel10k installed successfully"
+    else
+        print_info "Powerlevel10k is already installed"
+    fi
+}
 
 # Create necessary directories
-mkdir -p "$CONFIG_DIR/.zsh"
+create_directories() {
+    print_info "Creating necessary directories..."
+    mkdir -p "$CONFIG_DIR/.zsh"
+    mkdir -p "$CONFIG_DIR/scripts"
+    print_info "Directories created"
+}
 
 # Create symbolic links
 create_symlinks() {
-    echo "Creating symbolic links..."
+    print_info "Creating symbolic links..."
     
     # Backup existing files
-    [ -f ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.backup
-    [ -f ~/.p10k.zsh ] && mv ~/.p10k.zsh ~/.p10k.zsh.backup
+    [ -f ~/.zshrc ] && [ ! -L ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.backup && print_info "Backed up existing ~/.zshrc"
+    [ -f ~/.p10k.zsh ] && [ ! -L ~/.p10k.zsh ] && mv ~/.p10k.zsh ~/.p10k.zsh.backup && print_info "Backed up existing ~/.p10k.zsh"
+    [ -f ~/.gitconfig ] && [ ! -L ~/.gitconfig ] && mv ~/.gitconfig ~/.gitconfig.backup && print_info "Backed up existing ~/.gitconfig"
     
     # Create symbolic links
-    ln -sf "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
-    ln -sf "$DOTFILES/zsh/p10k.zsh" "$HOME/.p10k.zsh"
-    ln -sf "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
+    ln -sf "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc" && print_info "Linked ~/.zshrc"
+    ln -sf "$DOTFILES/zsh/p10k.zsh" "$HOME/.p10k.zsh" && print_info "Linked ~/.p10k.zsh"
     
-    # Link custom plugins
-    ln -sf "$DOTFILES/zsh/plugins/zsh-syntax-highlighting" "$CONFIG_DIR/.zsh/"
-    ln -sf "$DOTFILES/zsh/plugins/zsh-autosuggestions" "$CONFIG_DIR/.zsh/"
-    ln -sf "$DOTFILES/zsh/plugins/zsh-shift-select" "$CONFIG_DIR/.zsh/"
+    # Link git config if it exists
+    if [ -f "$DOTFILES/git/.gitconfig" ]; then
+        ln -sf "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig" && print_info "Linked ~/.gitconfig"
+    fi
+    
+    # Link scripts
+    if [ -f "$DOTFILES/scripts/clear_photos.sh" ]; then
+        ln -sf "$DOTFILES/scripts/clear_photos.sh" "$CONFIG_DIR/scripts/clear_photos.sh" && print_info "Linked clear_photos.sh"
+    fi
+    
+    # Link Cursor settings
+    CURSOR_USER_DIR="$HOME/Library/Application Support/Cursor/User"
+    if [ -d "$CURSOR_USER_DIR" ]; then
+        [ -f "$CURSOR_USER_DIR/keybindings.json" ] && [ ! -L "$CURSOR_USER_DIR/keybindings.json" ] && mv "$CURSOR_USER_DIR/keybindings.json" "$CURSOR_USER_DIR/keybindings.json.backup" && print_info "Backed up existing Cursor keybindings.json"
+        [ -f "$CURSOR_USER_DIR/settings.json" ] && [ ! -L "$CURSOR_USER_DIR/settings.json" ] && mv "$CURSOR_USER_DIR/settings.json" "$CURSOR_USER_DIR/settings.json.backup" && print_info "Backed up existing Cursor settings.json"
+        
+        ln -sf "$DOTFILES/cursor/keybindings.json" "$CURSOR_USER_DIR/keybindings.json" && print_info "Linked Cursor keybindings.json"
+        ln -sf "$DOTFILES/cursor/settings.json" "$CURSOR_USER_DIR/settings.json" && print_info "Linked Cursor settings.json"
+    else
+        print_warn "Cursor User directory not found. Skipping Cursor settings symlink."
+    fi
+    
+    print_info "Symbolic links created successfully"
 }
 
-# Main .zshrc content
-# zsh/.zshrc
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh"
-fi
-
-export ZSH="$HOME/.oh-my-zsh"
-export DOTFILES="$HOME/.dotfiles"
-
-# Theme configuration
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# Load Oh My Zsh
-plugins=(git copyfile)
-source $ZSH/oh-my-zsh.sh
-
-# Load custom configurations
-for config_file in $DOTFILES/zsh/*.zsh; do
-    source "$config_file"
-done
-
-# Load custom plugins
-source ~/.config/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/.zsh/zsh-shift-select/zsh-shift-select.plugin.zsh
-
-# Your functions.zsh
-killport() {
-  if [[ -z $1 ]]; then
-    echo "Usage: killport <port>"
-    return 1
-  fi
-
-  local port=$1
-  local pids=$(lsof -t -i:$port)
-
-  if [[ -z $pids ]]; then
-    echo "No processes found on port $port."
-    return 1
-  fi
-
-  echo "Killing processes on port $port: $pids"
-  kill -9 $pids
+# Fix Powerlevel10k path in .zshrc if needed
+fix_p10k_path() {
+    print_info "Checking Powerlevel10k path in .zshrc..."
+    
+    # Check if powerlevel10k is installed as Oh My Zsh theme
+    if [ -f "$P10K_THEME_DIR/powerlevel10k.zsh-theme" ]; then
+        P10K_PATH="$P10K_THEME_DIR/powerlevel10k.zsh-theme"
+    # Check if installed via Homebrew
+    elif [ -f "/opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+        P10K_PATH="/opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme"
+    elif [ -f "/opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+        P10K_PATH="/opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme"
+    else
+        print_warn "Could not find Powerlevel10k installation. You may need to install it manually."
+        return 0
+    fi
+    
+    # Update .zshrc if the path is different
+    if [ -f "$DOTFILES/zsh/.zshrc" ]; then
+        if grep -q "source.*powerlevel10k" "$DOTFILES/zsh/.zshrc"; then
+            # Use sed to replace the powerlevel10k path
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                # macOS sed
+                sed -i '' "s|source.*powerlevel10k.*|source $P10K_PATH|" "$DOTFILES/zsh/.zshrc"
+            else
+                # Linux sed
+                sed -i "s|source.*powerlevel10k.*|source $P10K_PATH|" "$DOTFILES/zsh/.zshrc"
+            fi
+            print_info "Updated Powerlevel10k path in .zshrc to: $P10K_PATH"
+        fi
+    fi
 }
 
-# Your keybindings.zsh
-bindkey '^K' backward-kill-line
-bindkey '^[begin' beginning-of-line
-bindkey '^[end' end-of-line
-
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
-precmd_functions+=(_fix_cursor)
-
-# Your aliases.zsh
-alias dev="cd ~/Desktop/Dev"
-alias play="cd ~/Desktop/Dev/playground"
-alias pjob="pbpaste > ~/Desktop/Dev/projects/jobs-api/content.txt"
-alias particle="pbpaste > ~/Desktop/Dev/projects/AICommands/article/content.txt"
-alias article='node ~/Desktop/Dev/projects/AICommands/article/index.js'
-alias seed='yarn b docker:exec seed'
-alias migration-run='yarn b docker:exec migration:run'
-
-clear_photos() {
-    ~/.config/scripts/clear_photos.sh
-}
-myip() {
-    ifconfig | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}'
-}
-config() {
-    code ~/.zshrc
+# Main installation function
+main() {
+    print_info "Starting dotfiles installation..."
+    
+    check_shell
+    install_oh_my_zsh
+    install_powerlevel10k
+    create_directories
+    create_symlinks
+    fix_p10k_path
+    
+    print_info "Installation completed successfully!"
+    print_info "Please restart your terminal or run: source ~/.zshrc"
 }
 
-# Environment setup
-export PATH=~/.npm-global/bin:$PATH
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# Source p10k configuration
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Run main function
+main

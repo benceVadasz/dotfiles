@@ -12,7 +12,14 @@ plugins=(git copyfile)
 source $ZSH/oh-my-zsh.sh
 
 # Load Powerlevel10k
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+# Try Oh My Zsh custom themes first, then Homebrew installation
+if [ -f "$ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+    source /Users/bencevadasz/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+elif [ -f "/opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+    source /Users/bencevadasz/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+elif [ -f "/opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+    source /Users/bencevadasz/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+fi
 
 source $DOTFILES/git/git-aliases.zsh
 
